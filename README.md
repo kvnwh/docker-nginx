@@ -1,7 +1,8 @@
 # Mount Volumes on Windows Subsystem for Linux (WSL)
-  ref: [blog post](https://medium.com/software-development-stories/developing-a-dockerized-web-app-on-windows-subsystem-for-linux-wsl-61efec965080)
+There is a [blog post](https://medium.com/software-development-stories/developing-a-dockerized-web-app-on-windows-subsystem-for-linux-wsl-61efec965080) about how to set it up, but not quite working for me. Following is the guide that works on my windows machine.
 
-## Install docker on windows and WSL
+## Install docker (If you already have docker set up in windows and bash, skip to step 4 )
+
 1. install [docker for windows](https://docs.docker.com/docker-for-windows/).
 2. install docker client on ubuntu
     ```sh
@@ -19,7 +20,14 @@
     **NOTE: If it is already on, click on Reset credentials to reset it (I couldn't get the mounted volume work until I reset)**
     
     ![image](https://cdn-images-1.medium.com/max/1600/1*nlJtgI5TxsNPqntOVFEAiw.jpeg)
-5. symlink `/mnt/c` as `/c` by `sudo ln -s /mnt/c /c`
+5. Make sure your projects are in your `user` directory, i.e. `C:\Users\your-name\*`, the mount will not work if it is outside `C:\Users`
+6. Open up bash terminal.
+6. symlink `/mnt/c` as `/c` 
+    
+    `sudo ln -s /mnt/c /c`
+7. go into the project directory by using `/c` (not `/mnt/c`), i.e. `cd /c/Users/your-name/dev/platform`. Recommended to add an alias in .bashrc file: 
+
+    `alias dev="cd /c/Users/your-name/dev"`
 6. now you can use `$PWD` in docker-compose file, so it will look like:
     ```
     web:
