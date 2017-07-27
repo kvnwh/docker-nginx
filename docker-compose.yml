@@ -3,7 +3,8 @@ version: '2'
 services:
   app:
     build: app
-
+    volumes:
+      - ./app:/usr/share/nginx/html
   proxy:
     build: proxy
     ports:
